@@ -1,0 +1,47 @@
+name: Node.js CI/CD to Fly.io
+
+on:
+  push:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Отримання коду
+        uses: actions/checkout@v4
+
+      - name: Налаштування Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Встановлення залежностей
+        run: npm ci
+
+      - name: Компіляція TypeScript
+        run: npm run build
+
+      - name: Запуск тестів
+        run: npm test
+
+  deploy:
+    name: Deploy to Fly.io
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Отримання коду
+        uses: actions/checkout@v4
+
+      - name: Встановлення Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Деплой на Fly.io
+        run: flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

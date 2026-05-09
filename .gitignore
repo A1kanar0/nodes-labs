@@ -1,0 +1,46 @@
+# Залежності (Найголовніше!)
+node_modules/
+**/node_modules/
+jspm_packages/
+.pnpm-store/
+
+# Результати компіляції (TS -> JS)
+dist/
+build/
+out/
+tsbuildinfo/
+
+# Секрети та налаштування (ЦЕ НЕ МАЄ ПОТРАПИТИ В ГІТ)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Логи
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+logs
+*.log
+
+# Тести та покриття (Лаба 5)
+coverage/
+.nyc_output/
+
+# Системні файли (твого макбука та інше)
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+desktop.ini
+
+# IDE (VS Code, WebStorm)
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker (якщо є локальні тимчасові дані)
+.docker/
