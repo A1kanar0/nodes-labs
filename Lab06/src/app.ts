@@ -2,7 +2,9 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
 import printModelRoutes from './routes/printModel';
+import authRoutes from './routes/auth';
 import { errorHandler } from './middleware/errorHandler';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.get('/health', (req, res) => {
     }
 });
 
+app.use(cookieParser());
+app.use('/auth', authRoutes);
 app.use('/api/models', printModelRoutes);
 
 app.use(errorHandler);

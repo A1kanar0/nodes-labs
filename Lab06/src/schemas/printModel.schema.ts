@@ -15,6 +15,7 @@ export type UpdatePrintModelInput = z.infer<typeof updatePrintModelSchema>;
 
 export type PrintModelEntity = CreatePrintModelInput & {
     id: string;
+    ownerId: string;
     createdAt: Date;
     updatedAt: Date;
 };

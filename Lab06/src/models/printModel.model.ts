@@ -2,6 +2,7 @@ import mongoose, {Schema, Document} from "mongoose";
 
 export interface IPrintModel extends Document {
     title: string;
+    ownerId: mongoose.Schema.Types.ObjectId;
     description?: string;
     printTimeMinutes: number;
     weightGrams: number;
@@ -16,6 +17,11 @@ const PrintModelSchema = new Schema<IPrintModel>({
         minlength: [2, 'Name should be at least 2 characters'],
         maxlength: [100, 'Name cannot be more than 100 characters'],
         trim: true,
+    },
+    ownerId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
     description: {
         type: String,
